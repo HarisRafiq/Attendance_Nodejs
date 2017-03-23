@@ -1,0 +1,74 @@
+extends layout
+
+block content
+
+  section#main-content
+    section.wrapper.site-min-height
+      h3
+        i.fa.fa-angle-right
+        |  Dashboard
+      .row
+        .col-lg-3.col-md-3.col-sm-3.mb
+          #thours.thours-panel.pn
+
+            p.heading Today
+            button.logout(onclick='addAttendance()') + Present
+
+              // /col-md-4
+        .col-lg-3.col-md-3.col-sm-3.mb
+          #thours.thours-panel.pn
+            p.heading Total Hours
+            p(id="tdata") 0
+                // /col-md-4
+
+        .col-lg-3.col-md-3.col-sm-3.mb
+          .rthours-panel.pn
+            p.heading Regular Hours
+            p(id="rdata") 0
+            // /col-md-4
+        .col-lg-3.col-md-3.col-sm-3.mb
+          .othours-panel.pn
+            p.heading Overtime Hours
+
+            p(id="otdata") 0
+                // /col-md-4
+
+      .row
+        <div class="myCalendar" id="myCalendar-1"></div>
+        <div id="myModal" class="modal"><div class="modal-content"><span class="close">×</span><div id="innerModal"></div></div></div>
+
+
+
+  block importScripts
+    script(src="/javascripts/jquery.min.js")
+    script(src="/javascripts/moment-with-locales.min.js")
+    script(src="/javascripts/ion.calendar.js")
+
+
+  script.
+    // Get the modal
+    var modal = document.getElementById('myModal');
+
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+    modal.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+    }
+    $("#myCalendar-1").ionCalendar({
+
+
+
+      format: "DD.MM.YYYY",           // date format
+      onClick: function(date){        // click on day returns date
+      modal.style.display = "block";
+        }
+        });

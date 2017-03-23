@@ -1,0 +1,38 @@
+extends layout
+
+block content
+
+    div
+        a.btn.btn-success(href="/dataset/new" role="button") New dataset
+    div.table-responsive
+        h3 My datasets
+        table.table.table-hover.table-bordered
+            thead
+                tr
+                    th Name
+                    th Department
+                    th Created at
+                    th Actions
+
+            tbody
+              -if (users)
+                - each user, i in users
+                    tr
+                        td
+                            h4=  user.name
+                        td
+                            div.col-md-6
+                                user.department
+
+                        td
+                            p=  user.created_on
+
+
+                        td
+
+                            div
+                                a.btn.btn-link(href="/dataset/read/") Show
+                             div
+                                 button.deleteDataset(type="submit" id="") Delete
+              div
+                canvas(id="new_canvas", height="400px", width="800px")

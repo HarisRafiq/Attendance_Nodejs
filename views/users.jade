@@ -1,0 +1,98 @@
+extends layout
+
+block content
+
+  section#main-content
+    section.wrapper.site-min-height
+      h3
+        i.fa.fa-angle-right
+        |  Dashboard
+      .row.mt
+        .col-md-12
+          .content-panel
+            table.table.table-striped.table-advance.table-hover
+                  h4
+                    i.fa.fa-angle-right
+                    |  Groups
+                    .top-menu
+                      ul.nav.pull-right.top-menu
+                        li
+                          button.logout(onclick='creategroupPopUp()') Add Group
+                  hr
+                  thead
+                    tr
+                      th
+                        i.fa.fa-bullhorn
+                        |  Name
+                      th
+                        i.fa.fa-bullhorn
+                        | Registeration Link(Copy & Email to members of concerned department)
+                      th
+                        i.fa.fa-edit
+                        |  Delete
+                      th
+                  tbody
+                    -if(groups)
+                      - each group, i in groups.groups
+                        tr
+                          td
+                            a(href='/admin/group/'+group._id) #{group.name}
+                          td
+                            a( href='/register/'+groups._id+'/'+group._id) Copy & send this link
+
+                          td
+                            button.btn.btn-danger.btn-xs(onclick='deleteGroup("#{group._id}")')
+                              i.fa.fa-trash-o
+
+      .row.mt
+        .col-md-12
+          .content-panel
+            table.table.table-striped.table-advance.table-hover
+                  h4
+                    i.fa.fa-angle-right
+                    |  Users
+                  hr
+                  thead
+                    tr
+                      th
+                        i.fa.fa-bullhorn
+                        |  Name
+                      th.hidden-phone
+                        i.fa.fa-question-circle
+                        |  Department
+                      th
+                        i.fa.fa-bookmark
+                        |  Daily Duty Hour
+                      th
+                        i.fa.fa-edit
+                        |  Status
+                      th
+                  tbody
+                    -if(users)
+                      -for dataset in users
+
+                        tr
+                          td
+                            p #{dataset.name}
+                          td.hidden-phone #{dataset.department}
+                          td #{dataset.dutyHours}
+                          -if(dataset.status==1)
+                            td
+                              span.label.label-info.label-mini Manager
+                          -else
+                            td
+                              span.label.label-info.label-mini Regular
+
+
+
+                          td
+
+                            button.btn.btn-danger.btn-xs(onclick='deleteUser("#{dataset._id}")')
+                              i.fa.fa-trash-o
+  <div id="myModal" class="modal"><div class="modal-content"><span class="close">×</span><div id="innerModal"></div></div></div>
+  <div id="groupModal" class="modal"><div class="modal-content"><span class="close">×</span><div id="groupInnerModal"></div></div></div>
+
+
+  block importScripts
+    script(src="/javascripts/jquery.min.js")
+    script(src="/javascripts/aepl.js")
